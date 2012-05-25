@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+
+var argv = require('optimist')
+		.usage("Usage: formatter -l <language> -i <path> [-o <path>]")
+		.demand(['l', 'i'])
+		.alias('l', 'language')
+		.describe('l', 'programming language like Java, PHP or Ruby')
+		.alias('i', 'input')
+		.describe('i', 'source directory of source code')
+		.alias('o', 'output')
+		.describe('o', 'output directory - optional')
+		.argv;
+
+var options = {
+	path: null,
+	language: null,
+	convention: null,
+};
+
+console.log(argv);
