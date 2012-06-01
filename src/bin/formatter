@@ -1,22 +1,53 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+var fs = require('fs'),
+	path = require('path');
+
+var library = fs.realpathSync('../library');
+var iterator = require(library + '/recursiveDirectoryIterator');
 
 var argv = require('optimist')
-		.usage("Usage: formatter -l <language> -i <path> [-o <path>]")
-		.demand(['l', 'i'])
+		.usage("Usage: formatter -l <language> -c <coding convention> -i <path> [-o <path>]")
+		.demand(['l', 'c', 'i'])
 		.alias('l', 'language')
 		.describe('l', 'programming language like Java, PHP or Ruby')
+		.alias('c', 'convention')
+		.describe('Coding Convention / Standard')
 		.alias('i', 'input')
 		.describe('i', 'source directory of source code')
 		.alias('o', 'output')
 		.describe('o', 'output directory - optional')
 		.argv;
 
+argv.input = fs.realpathSync(argv.input);
+
 var options = {
-	path: null,
-	language: null,
-	convention: null,
+	path: argv.input,
+	output: argv.output || argv.input,
+	language: argv.language.toLowerCase(),
+	convention: argv.convention.toLowerCase(),
 };
 
-console.log(argv);
+if (!path.existsSync(library + '/languages/' + options.language)) {
+	console.log('The language "' + options.language + '" is not supported.');
+	console.log("\nSupported languages are:");
+	
+	folders = fs.readdirSync(library + '/languages/')
+	folders.forEach(function(folder) {
+		console.log(" -" + folder);
+	});
+
+	process.exit(1);
+} else {
+	console.log('Load language description file here!');
+}
+
+
+iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files) {
+  if (err) throw err;
+  files.forEach(function(file) {
+  	var content = fs.readFileSync(file, 'utf-8');
+  	console.log(content);
+  	process.exit(1);
+  });
+});
