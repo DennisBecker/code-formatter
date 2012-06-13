@@ -3,7 +3,7 @@
 var fs = require('fs'),
 	path = require('path');
 
-var library = fs.realpathSync('../library');
+var library = fs.realpathSync(__dirname + '/../library');
 var iterator = require(library + '/recursiveDirectoryIterator');
 
 var argv = require('optimist')
@@ -37,7 +37,7 @@ if (!path.existsSync(library + '/languages/' + options.language)) {
 		console.log(" -" + folder);
 	});
 
-	process.exit(1);
+	process.exit(0);
 } else {
 	console.log('Load language description file here!');
 }
@@ -48,6 +48,6 @@ iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files)
   files.forEach(function(file) {
   	var content = fs.readFileSync(file, 'utf-8');
   	console.log(content);
-  	process.exit(1);
+  	process.exit(0);
   });
 });
