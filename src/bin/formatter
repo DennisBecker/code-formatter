@@ -28,6 +28,12 @@ var options = {
 	convention: argv.convention.toLowerCase(),
 };
 
+var languageDefintion = null;
+var tokenPatterns = [];
+var tokenList = [];
+
+var previousToken = null;
+
 if (!path.existsSync(library + '/languages/' + options.language)) {
 	console.log('The language "' + options.language + '" is not supported.');
 	console.log("\nSupported languages are:");
@@ -39,15 +45,70 @@ if (!path.existsSync(library + '/languages/' + options.language)) {
 
 	process.exit(0);
 } else {
-	console.log('Load language description file here!');
+	languageDefintion = require(library + '/languages/' + options.language + '/' + options.language);
 }
+
+for (token in languageDefintion.tokens) {
+	tokenList.push(token);
+	tokenPatterns.push(languageDefintion.tokens[token]);
+}
+
+var tokenRegex = "((" + tokenPatterns.join(")|(") + "))";
+console.log('REGEX: ' + tokenRegex);
+var regex = new RegExp();
+regex.compile(tokenRegex);
 
 
 iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files) {
   if (err) throw err;
   files.forEach(function(file) {
-  	var content = fs.readFileSync(file, 'utf-8');
-  	console.log(content);
-  	process.exit(0);
+    var content = fs.readFileSync(file, 'utf-8');
+
+    var count = 0;
+    var index = 2;
+	var offset = 0;
+	var tokens = [];
+	var matches = [];
+	var matchesRegexResults = [];
+
+    while (content.length > 0) {
+
+      matches = content.match(regex);
+      matchesRegexResults = matches;
+
+      if (matches.index != 0) {
+      	console.log("NO MATCH FOUND!");
+      	console.log(content);
+      	process.exit(0);
+      }
+
+      for (index = 2; index < matches.length; index++) {
+        if (typeof matches[index] !== "undefined") {
+          break;
+        }
+      }
+
+      if (typeof tokens[count-1] !== "undefined") {
+        previousToken = tokens[count-1];
+      }
+      
+      tokens[count] = {
+        type: tokenList[index-2],
+        content: matches[0],
+        prev: previousToken,
+        next: null
+      }
+
+      // console.log(tokenList[index-2] + ' - "' + matches[0] + '"');
+
+      if (typeof tokens[count-1] !== "undefined") {
+        tokens[count-1].next = tokens[count];
+      }
+      
+      content = content.substr(matches[0].length);
+      count++;
+	}
+	console.log(tokens);
+	process.exit(0);
   });
 });
