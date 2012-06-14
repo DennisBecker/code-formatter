@@ -1,0 +1,10 @@
+{
+  "name": "code-formatter",
+  "description": "source code formatting tool",
+  "version": "0.1.0",
+  "author": "Dennis Becker",
+  "dependencies": {
+    "optimist": "~0.3.4"
+  },
+  "devDependencies": {}
+}
