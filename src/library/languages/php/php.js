@@ -14,7 +14,7 @@ exports.tokens = {
 	T_CLASS_C: '\\_\\_CLASS\\_\\_',
 	T_CLONE: 'clone',
 	T_CLOSE_TAG: '\\?\\>',
-	T_COMMENT: '//.*',
+	T_COMMENT: '//.*|#.*|/\\*[!\\*][\\s\\S]*?\\*/',
 	T_DOC_COMMENT: '/\\*\\*[\\s\\S]*?\\*/',
 	T_OPEN_TAG: '<\\?php|<\\?',
 	T_QUOTED_STRING: '[\\\'"].*\\1',
