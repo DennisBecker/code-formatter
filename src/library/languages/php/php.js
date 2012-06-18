@@ -17,7 +17,7 @@ exports.tokens = {
     T_COMMENT: '//.*|#.*|/\\*[!\\*][\\s\\S]*?\\*/',
     T_CONCAT_EQUAL: '\\.=',
     T_CONST: 'const',
-    T_CONSTANT_ENCAPSED_STRING: '[\\\'"].*\\1'
+    T_CONSTANT_ENCAPSED_STRING: '[\\\'"].*\\1',
     T_CONTINUE: 'continue',
     T_CURLY_CLOSE: '\\}',
     T_CURLY_OPEN: '\\{',
@@ -28,6 +28,12 @@ exports.tokens = {
     T_DIV_EQUAL: '/=',
     T_DNUMBER: '\\d.*\\.{1}\\d.*',
     T_DOC_COMMENT: '/\\*\\*[\\s\\S]*?\\*/',
+    T_DO: 'do',
+    T_DOLLAR_OPEN_CURLY_BRACES: '${',
+    T_DOUBLE_ARROW: '=>',
+    T_DOUBLE_CAST: '\\([real|double|float]\\)',
+    T_DOUBLE_COLON: '::',
+    T_ECHO: 'echo',
     T_OPEN_TAG: '<\\?php|<\\?',
     T_WHITESPACE: '\\s',
 };
