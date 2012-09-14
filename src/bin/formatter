@@ -12,7 +12,7 @@ var argv = require('optimist')
 		.alias('l', 'language')
 		.describe('l', 'programming language like Java, PHP or Ruby')
 		.alias('c', 'convention')
-		.describe('Coding Convention / Standard')
+		.describe('c', 'Coding Convention / Standard')
 		.alias('i', 'input')
 		.describe('i', 'source directory of source code')
 		.alias('o', 'output')
@@ -34,10 +34,10 @@ var tokenList = [];
 
 var previousToken = null;
 
-if (!path.existsSync(library + '/languages/' + options.language)) {
+if (!fs.existsSync(library + '/languages/' + options.language)) {
 	console.log('The language "' + options.language + '" is not supported.');
 	console.log("\nSupported languages are:");
-	
+
 	folders = fs.readdirSync(library + '/languages/')
 	folders.forEach(function(folder) {
 		console.log(" -" + folder);
@@ -91,7 +91,7 @@ iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files)
       if (typeof tokens[count-1] !== "undefined") {
         previousToken = tokens[count-1];
       }
-      
+
       tokens[count] = {
         type: tokenList[index-2],
         content: matches[0],
@@ -104,7 +104,7 @@ iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files)
       if (typeof tokens[count-1] !== "undefined") {
         tokens[count-1].next = tokens[count];
       }
-      
+
       content = content.substr(matches[0].length);
       count++;
 	}
