@@ -34,6 +34,15 @@ exports.tokens = {
     T_DOUBLE_CAST: '\\([real|double|float]\\)',
     T_DOUBLE_COLON: '::',
     T_ECHO: 'echo',
+    T_EXTENDS: 'extends',
+    T_ELSE: 'else',
+    T_ELSEIF: 'elseif',
+    T_EMPTY: 'empty',
+    T_PRIVATE: 'private',
+    T_PROTECTED: 'protected',
+    T_PUBLIC: 'public',
     T_OPEN_TAG: '<\\?php|<\\?',
+    T_VARIABLE: '\\$[\\w_]+',
     T_WHITESPACE: '\\s',
+    T_STRING: '[\\w_]+'
 };
