@@ -54,7 +54,7 @@ for (token in languageDefintion.tokens) {
 }
 
 var tokenRegex = "((" + tokenPatterns.join(")|(") + "))";
-console.log('REGEX: ' + tokenRegex);
+//console.log('REGEX: ' + tokenRegex);
 var regex = new RegExp();
 regex.compile(tokenRegex);
 
@@ -92,6 +92,8 @@ iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files)
         previousToken = tokens[count-1];
       }
 
+      console.log(tokenList[index-2] + " - " + '"' + matches[0] + '"');
+
       tokens[count] = {
         type: tokenList[index-2],
         content: matches[0],
@@ -108,7 +110,7 @@ iterator.recursiveDirectoryIterator(options.path, '\.php$', function(err, files)
       content = content.substr(matches[0].length);
       count++;
 	}
-	console.log(tokens);
+//	console.log(tokens);
 	process.exit(0);
   });
 });
