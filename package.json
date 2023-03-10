@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Dennis Becker",
   "dependencies": {
-    "optimist": "~0.3.4"
+    "optimist": "~0.6.0"
   },
   "devDependencies": {}
 }
